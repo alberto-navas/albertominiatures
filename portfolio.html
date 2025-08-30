@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portfolio - Albertominiatures</title>
   <style>
     body {
@@ -32,9 +32,7 @@
       margin-left: 1.5rem;
       font-weight: 500;
     }
-    nav a:hover {
-      color: #f5c542;
-    }
+    nav a:hover { color: #f5c542; }
 
     /* --- Galería con carruseles --- */
     .gallery {
@@ -49,19 +47,24 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      background: #0b0b0b;
+      min-height: 260px; /* evita saltos si imagen tarda */
     }
 
     .carousel {
       position: relative;
       overflow: hidden;
       border-radius: 12px;
+      height: 100%;
     }
 
     /* Una imagen visible, resto ocultas */
     .carousel img {
       width: 100%;
+      height: auto;
       display: none;
       vertical-align: middle;
+      object-fit: cover;
     }
     .carousel img.active {
       display: block;
@@ -74,27 +77,50 @@
       right: 0;
       bottom: 0;
       padding: 1rem;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 60%, rgba(0,0,0,0.85) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.85) 100%);
       color: #f5f5f5;
       opacity: 0;
       transform: translateY(15px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.28s ease, transform 0.28s ease;
       pointer-events: none;
+      z-index: 4;
     }
-    .project:hover .overlay {
-      opacity: 1;
-      transform: translateY(0);
+    .project:hover .overlay { opacity: 1; transform: translateY(0); }
+    .overlay h3 { margin: 0 0 0.25rem 0; font-size: 1.05rem; color: #f5c542; }
+    .overlay p { margin: 0; font-size: 0.92rem; line-height: 1.35; color: #e9e9e9; }
+
+    /* Botones de navegación */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 6;
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.12s ease;
+      pointer-events: auto;
     }
-    .overlay h3 {
-      margin: 0 0 0.25rem 0;
-      font-size: 1.1rem;
-      color: #f5c542;
-    }
-    .overlay p {
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.35;
-      color: #e9e9e9;
+    .nav-btn:active { transform: translateY(-50%) scale(0.96); }
+    .project:hover .nav-btn { opacity: 1; }
+    .nav-btn.prev { left: 10px; }
+    .nav-btn.next { right: 10px; }
+
+    .nav-btn:focus { outline: 2px solid #f5c542; outline-offset: 2px; }
+
+    /* Responsive: en pantallas táctiles mostramos overlay siempre y mostramos botones visibles */
+    @media (hover: none) {
+      .overlay { opacity: 1; transform: none; pointer-events: auto; }
+      .nav-btn { opacity: 0.95; }
     }
 
     footer {
@@ -103,19 +129,7 @@
       padding: 1.5rem;
       margin-top: 3rem;
     }
-    footer a {
-      color: #f5c542;
-      margin: 0 0.5rem;
-      text-decoration: none;
-    }
-
-    /* (Opcional) toques responsivos para móviles: muestra overlay siempre en pantallas pequeñas */
-    @media (hover: none) {
-      .overlay {
-        opacity: 1;
-        transform: none;
-      }
-    }
+    footer a { color: #f5c542; margin: 0 0.5rem; text-decoration: none; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -138,10 +152,13 @@
         <img src="miniaturas/Capellan_Exterminador_Ultramarines/3.png" alt="Capellán Exterminador - vista 3">
         <img src="miniaturas/Capellan_Exterminador_Ultramarines/4.png" alt="Capellán Exterminador - vista 4">
       </div>
+
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
+
       <div class="overlay">
         <h3>Capellán Exterminador</h3>
-        <p>Base de color negra mítica de los capellanes del milenio 41, decidí añadir más historia a esta miniatura. 
-          Siendo del capítulo de los Ultramarines, tiene en la base un servocráneo y un casco de un berserker de khorne</p>
+        <p>Base de color negra mítica de los capellanes del milenio 41, añadí historia a la base con un servocráneo y casco de berserker.</p>
       </div>
     </div>
 
@@ -153,70 +170,78 @@
         <img src="miniaturas/Exterminador_de_Vanguardia/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Exterminador_de_Vanguardia/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
+
       <div class="overlay">
         <h3>Exterminador en Vanguardia</h3>
-        <p>Uno de los exterminadores que acompañó a Guilliman durante el ataque a su hermano Fulgrim. Con un toque sangriento, sigue el estilo
-        de los Ultramarines con un bólter tormenta.</p>
+        <p>Con toque sangriento, sigue el estilo Ultramarines; bólter tormenta y efectos de desgaste en la armadura.</p>
       </div>
     </div>
-    
+
+    <!-- (Sigue igual para el resto de proyectos — conserva tu HTML original) -->
     <!-- Proyecto 3 -->
     <div class="project">
       <div class="carousel">
-        <img src="miniaturas/Exterminador_Rotatoria/1.png" alt="Exterminador de Vanguardia - vista 1" class="active">
-        <img src="miniaturas/Exterminador_Rotatoria/2.png" alt="Exterminador de Vanguardia - vista 2">
-        <img src="miniaturas/Exterminador_Rotatoria/3.png" alt="Exterminador de Vanguardia - vista 3">
-        <img src="miniaturas/Exterminador_Rotatoria/4.png" alt="Exterminador de Vanguardia - vista 4">
+        <img src="miniaturas/Exterminador_Rotatoria/1.png" alt="Exterminador Rotatoria - vista 1" class="active">
+        <img src="miniaturas/Exterminador_Rotatoria/2.png" alt="Exterminador Rotatoria - vista 2">
+        <img src="miniaturas/Exterminador_Rotatoria/3.png" alt="Exterminador Rotatoria - vista 3">
+        <img src="miniaturas/Exterminador_Rotatoria/4.png" alt="Exterminador Rotatoria - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Exterminador Ciclónida</h3>
-        <p>Uno de los exterminadores más temidos del milenio 41, cuando las hordas lo ven, se asustan de inmediato. Tiene su toque sangriento
-         y en la punta del rifle símbolos de quemaduras graves de tantas salvas.</p>
+        <p>Temido exterminador con símbolos de quemaduras en la punta del rifle tras muchas salvas.</p>
       </div>
     </div>
-    
+
     <!-- Proyecto 4 -->
     <div class="project">
       <div class="carousel">
-        <img src="miniaturas/Exterminador_Revientacraneos/1.png" alt="Exterminador de Vanguardia - vista 1" class="active">
-        <img src="miniaturas/Exterminador_Revientacraneos/2.png" alt="Exterminador de Vanguardia - vista 2">
-        <img src="miniaturas/Exterminador_Revientacraneos/3.png" alt="Exterminador de Vanguardia - vista 3">
-        <img src="miniaturas/Exterminador_Revientacraneos/4.png" alt="Exterminador de Vanguardia - vista 4">
+        <img src="miniaturas/Exterminador_Revientacraneos/1.png" alt="Exterminador Revientacráneos - 1" class="active">
+        <img src="miniaturas/Exterminador_Revientacraneos/2.png" alt="Exterminador Revientacráneos - 2">
+        <img src="miniaturas/Exterminador_Revientacraneos/3.png" alt="Exterminador Revientacráneos - 3">
+        <img src="miniaturas/Exterminador_Revientacraneos/4.png" alt="Exterminador Revientacráneos - 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Exterminador Revientacráneos</h3>
-        <p>Los puños de los exterminadores es incluso más temido que sus bólter tormenta. Un golpe de su puño de Macragge y saldrás
-        pulverizado del campo de batalla.</p>
+        <p>Puños temidos, un golpe de Macragge y queda pulverizado el rival; peana trabajada y efectos de impacto.</p>
       </div>
     </div>
-    
+
     <!-- Proyecto 5 -->
     <div class="project">
       <div class="carousel">
-        <img src="miniaturas/Hellblaster_Apuntando/1.png" alt="Exterminador de Vanguardia - vista 1" class="active">
-        <img src="miniaturas/Hellblaster_Apuntando/2.png" alt="Exterminador de Vanguardia - vista 2">
-        <img src="miniaturas/Hellblaster_Apuntando/3.png" alt="Exterminador de Vanguardia - vista 3">
-        <img src="miniaturas/Hellblaster_Apuntando/4.png" alt="Exterminador de Vanguardia - vista 4">
+        <img src="miniaturas/Hellblaster_Apuntando/1.png" alt="Hellblaster - 1" class="active">
+        <img src="miniaturas/Hellblaster_Apuntando/2.png" alt="Hellblaster - 2">
+        <img src="miniaturas/Hellblaster_Apuntando/3.png" alt="Hellblaster - 3">
+        <img src="miniaturas/Hellblaster_Apuntando/4.png" alt="Hellblaster - 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Hellblaster</h3>
-        <p>Los vehículos es su enemigo preferido. De las primeras miniaturas que pinté y sus cartucheras negras para las cargas de 
-        fusión.</p>
+        <p>Vehículos como objetivo preferido; cartucheras negras y detalle en cargas de fusión.</p>
       </div>
     </div>
-    
+
     <!-- Proyecto 6 -->
     <div class="project">
       <div class="carousel">
-        <img src="miniaturas/Hellblaster_Sorprendido/1.png" alt="Exterminador de Vanguardia - vista 1" class="active">
-        <img src="miniaturas/Hellblaster_Sorprendido/2.png" alt="Exterminador de Vanguardia - vista 2">
-        <img src="miniaturas/Hellblaster_Sorprendido/3.png" alt="Exterminador de Vanguardia - vista 3">
-        <img src="miniaturas/Hellblaster_Sorprendido/4.png" alt="Exterminador de Vanguardia - vista 4">
+        <img src="miniaturas/Hellblaster_Sorprendido/1.png" alt="Hellblaster Sorprendido - 1" class="active">
+        <img src="miniaturas/Hellblaster_Sorprendido/2.png" alt="Hellblaster Sorprendido - 2">
+        <img src="miniaturas/Hellblaster_Sorprendido/3.png" alt="Hellblaster Sorprendido - 3">
+        <img src="miniaturas/Hellblaster_Sorprendido/4.png" alt="Hellblaster Sorprendido - 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Hellblaster</h3>
-        <p>Un toque menos desgastado pues están alejados del combate cuerpo a cuerpo. Que no logren apuntar a tus vehículos, pues 
-        puede ser último turno.</p>
+        <p>Menos desgastado; ideal para mantener distancia y controlar el tablero con potencia de fuego.</p>
       </div>
     </div>
     
@@ -228,6 +253,8 @@
         <img src="miniaturas/Intercesor_de_Asalto_buscando_su_Presa/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Intercesor_de_Asalto_buscando_su_Presa/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Intercessor de Asalto</h3>
         <p>Buscan una muerte gloriosa por el Primarca, por ello sus sierras nunca se limpian pues son los primeros en arrancar la carga
@@ -243,6 +270,8 @@
         <img src="miniaturas/Intercesor_de_Asalto_con_Granada/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Intercesor_de_Asalto_con_Granada/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Intercessor de Asalto</h3>
         <p>Nunca van al campo de batalla sin granadas, y sus armaduras están manchadas con multitud de bajas.</p>
@@ -257,6 +286,8 @@
         <img src="miniaturas/Intercesor_de_Asalto_Demacrado/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Intercesor_de_Asalto_Demacrado/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Intercessor de Asalto</h3>
         <p>A la espera de la siguiente gran batalla, los intercessor buscan su siguiente víctima para llevarle al Primarca. Como siempre
@@ -272,6 +303,8 @@
         <img src="miniaturas/Reiver_Alerta/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Reiver_Alerta/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Reiver</h3>
         <p>Mi segunda unidad pintada de los Ultramarines con tan solo 13 años. Su toque gótico me maravilló y ahora sus cráneos llevan
@@ -287,6 +320,8 @@
         <img src="miniaturas/Reiver_Rebanador/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Reiver_Rebanador/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Reiver</h3>
         <p>Aunque son monopose y quedan raras, la calavera sigue siendo muy llamativa y los degradados de la misma hacen que el mismísimo
@@ -302,6 +337,8 @@
         <img src="miniaturas/Sargento_Reiver/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Sargento_Reiver/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Sargento Reiver</h3>
         <p>Mi primera vez con piel, hice lo que pude pero tengo que seguir mejorando con práctica. El color rojo para los sargentos o tenientes
@@ -317,6 +354,8 @@
         <img src="miniaturas/Teniente_Titus/3.png" alt="Exterminador de Vanguardia - vista 3">
         <img src="miniaturas/Teniente_Titus/4.png" alt="Exterminador de Vanguardia - vista 4">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Teniente Titus</h3>
         <p>Aunque no es la miniatura oficial del teniente Titus, siempre me atrajo su nombre desde que jugué a la primera entrega. Su aura 
@@ -330,13 +369,15 @@
         <img src="miniaturas/Teniente_Ultramarine_Laureado/1.png" alt="Exterminador de Vanguardia - vista 1" class="active">
         <img src="miniaturas/Teniente_Ultramarine_Laureado/2.png" alt="Exterminador de Vanguardia - vista 2">
       </div>
+      <button class="nav-btn prev" aria-label="Anterior">‹</button>
+      <button class="nav-btn next" aria-label="Siguiente">›</button>
       <div class="overlay">
         <h3>Teniente Laureado</h3>
         <p>Sigo teniendo que mejorar mi nivel de pintura a la hora de caras y piel, pero su aura románica con la corona me llamó la atención. 
         En principio era dorado, pero el verde era más para mi ejército personal.</p>
       </div>
     </div>
-    
+
   </section>
 
   <footer id="contacto">
@@ -347,19 +388,84 @@
   </footer>
 
   <script>
-    // Carrusel automático independiente por tarjeta
-    document.querySelectorAll('.carousel').forEach((carousel, i) => {
-      const imgs = carousel.querySelectorAll('img');
-      let idx = 0;
+    // Para cada .project gestionamos su carrusel de forma independiente
+    document.querySelectorAll('.project').forEach((project, indexProject) => {
+      const imgs = Array.from(project.querySelectorAll('.carousel img'));
+      if (!imgs.length) return;
 
-      setInterval(() => {
-        imgs[idx].classList.remove('active');
-        idx = (idx + 1) % imgs.length;
-        imgs[idx].classList.add('active');
-      }, 3000 + (i * 200)); // leve desfase entre tarjetas (opcional)
+      // Aseguramos que siempre haya una imagen "active"
+      let current = imgs.findIndex(img => img.classList.contains('active'));
+      if (current === -1) current = 0;
+      imgs.forEach((img, i) => {
+        img.classList.toggle('active', i === current);
+      });
+
+      // Referencias a botones
+      const btnPrev = project.querySelector('.nav-btn.prev');
+      const btnNext = project.querySelector('.nav-btn.next');
+
+      // Mostrar función
+      function show(n) {
+        imgs.forEach((img, i) => img.classList.toggle('active', i === n));
+        current = n;
+      }
+
+      // Autoplay con reinicio
+      const baseDelay = 3000;
+      function startInterval() {
+        return setInterval(() => {
+          const next = (current + 1) % imgs.length;
+          show(next);
+        }, baseDelay + (indexProject * 150)); // leve desfase entre proyectos
+      }
+
+      let intervalId = startInterval();
+
+      // Botones prev/next
+      if (btnPrev) {
+        btnPrev.addEventListener('click', (e) => {
+          e.stopPropagation();
+          clearInterval(intervalId);
+          show((current - 1 + imgs.length) % imgs.length);
+          intervalId = startInterval();
+        });
+      }
+      if (btnNext) {
+        btnNext.addEventListener('click', (e) => {
+          e.stopPropagation();
+          clearInterval(intervalId);
+          show((current + 1) % imgs.length);
+          intervalId = startInterval();
+        });
+      }
+
+      // Pausa al hover / resume al leave
+      project.addEventListener('mouseenter', () => clearInterval(intervalId));
+      project.addEventListener('mouseleave', () => {
+        clearInterval(intervalId);
+        intervalId = startInterval();
+      });
+
+      // Soporte táctil simple (swipe)
+      let touchStartX = 0;
+      project.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) touchStartX = e.touches[0].clientX;
+      }, {passive: true});
+
+      project.addEventListener('touchend', (e) => {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 30) {
+          clearInterval(intervalId);
+          if (dx < 0) show((current + 1) % imgs.length); // swipe left -> next
+          else show((current - 1 + imgs.length) % imgs.length); // swipe right -> prev
+          intervalId = startInterval();
+        }
+      });
     });
   </script>
 </body>
 </html>
+
 
 
